@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaBookmark, FaExternalLinkAlt, FaTrash } from 'react-icons/fa';
+import { Opportunity } from '@/types';
 
 // Mock saved opportunities data
 const mockSavedOpportunities: Opportunity[] = [
