@@ -1,0 +1,31 @@
+{
+  "name": "opportunities-database-africa",
+  "version": "1.0.0",
+  "description": "Scholarship Opportunities Database for Africa",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-icons": "^5.5.0",
+    "typescript": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.0"
+  }
+}
