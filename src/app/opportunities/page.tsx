@@ -23,8 +23,42 @@ const mockOpportunities: Opportunity[] = [
     benefits: ['Competitive stipend', 'Mentorship', 'Career growth'],
     location: 'Remote',
     organization: 'Tech Corp',
+    link: 'https://techcorp.com/careers/internship-2024'
   },
-  // Add more mock opportunities as needed
+  {
+    id: '2',
+    title: 'Software Engineering Scholarship',
+    description: 'Full scholarship for African students pursuing software engineering.',
+    deadline: new Date('2024-12-31'),
+    createdAt: new Date('2024-03-01'),
+    createdBy: 'admin1',
+    tags: ['scholarship', 'software-engineering', 'education'],
+    eligibility: ['undergraduate'],
+    type: 'scholarship',
+    status: 'active',
+    requirements: ['High school diploma', 'Strong academic record'],
+    benefits: ['Full tuition coverage', 'Monthly stipend', 'Mentorship program'],
+    location: 'Kenya',
+    organization: 'Tech Education Foundation',
+    link: 'https://techedufoundation.org/scholarships/2024'
+  },
+  {
+    id: '3',
+    title: 'Senior Frontend Developer',
+    description: 'Join our team as a Senior Frontend Developer and lead our frontend development efforts.',
+    deadline: new Date('2024-12-31'),
+    createdAt: new Date('2024-03-01'),
+    createdBy: 'admin1',
+    tags: ['job', 'frontend', 'senior', 'react'],
+    eligibility: ['graduate'],
+    type: 'job',
+    status: 'active',
+    requirements: ['5+ years experience', 'React', 'TypeScript'],
+    benefits: ['Competitive salary', 'Health insurance', 'Remote work'],
+    location: 'Nigeria',
+    organization: 'Digital Solutions Inc',
+    link: 'https://digitalsolutions.com/careers/senior-frontend'
+  }
 ];
 
 export default function OpportunitiesPage() {
@@ -50,7 +84,7 @@ export default function OpportunitiesPage() {
   // Filter opportunities based on search and filters
   const filteredOpportunities = useMemo(() => {
     return mockOpportunities.filter(opportunity => {
-    const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         opportunity.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesType = !selectedType || opportunity.type === selectedType;
       const matchesLocation = !selectedLocation || opportunity.location === selectedLocation;
@@ -99,7 +133,7 @@ export default function OpportunitiesPage() {
                 isSaved={savedOpportunities.includes(opportunity.id)}
               />
             ))}
-        </div>
+          </div>
 
           {filteredOpportunities.length === 0 && (
             <div className="text-center py-12">

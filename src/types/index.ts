@@ -25,6 +25,7 @@ export interface Opportunity {
   benefits: string[];
   location: string;
   organization: string;
+  link: string;
 }
 
 export interface Notification {
