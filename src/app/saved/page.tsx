@@ -5,38 +5,56 @@ import Link from 'next/link';
 import { FaBookmark, FaExternalLinkAlt, FaTrash } from 'react-icons/fa';
 
 // Mock saved opportunities data
-const mockSavedOpportunities = [
+const mockSavedOpportunities: Opportunity[] = [
   {
     id: '1',
     title: 'Software Engineer',
-    company: 'Tech Africa',
+    description: 'Join our team as a Software Engineer and help build the future of African tech.',
+    deadline: new Date('2024-05-01'),
+    createdAt: new Date('2024-03-15'),
+    createdBy: 'admin1',
+    tags: ['job', 'software-engineering'],
+    eligibility: ['graduate'],
+    type: 'job',
+    status: 'active',
+    requirements: ['React', 'Node.js', 'TypeScript'],
+    benefits: ['Competitive salary', 'Remote work', 'Health insurance'],
     location: 'Remote',
-    type: 'Full-time',
-    category: 'jobs',
-    deadline: '2024-05-01',
-    savedAt: '2024-03-15',
+    organization: 'Tech Africa',
     link: 'https://example.com/job1',
   },
   {
     id: '2',
     title: 'Data Science Internship',
-    company: 'Data Insights Africa',
+    description: 'Gain hands-on experience in data science and machine learning.',
+    deadline: new Date('2024-04-15'),
+    createdAt: new Date('2024-03-14'),
+    createdBy: 'admin1',
+    tags: ['internship', 'data-science'],
+    eligibility: ['undergraduate'],
+    type: 'internship',
+    status: 'active',
+    requirements: ['Python', 'Statistics', 'Machine Learning'],
+    benefits: ['Stipend', 'Mentorship', 'Career growth'],
     location: 'Nairobi, Kenya',
-    type: 'Internship',
-    category: 'internships',
-    deadline: '2024-04-15',
-    savedAt: '2024-03-14',
+    organization: 'Data Insights Africa',
     link: 'https://example.com/internship1',
   },
   {
     id: '3',
     title: 'Masters Scholarship in Technology',
-    company: 'African Tech University',
+    description: 'Full scholarship for African students pursuing technology degrees.',
+    deadline: new Date('2024-06-30'),
+    createdAt: new Date('2024-03-13'),
+    createdBy: 'admin1',
+    tags: ['scholarship', 'education', 'technology'],
+    eligibility: ['graduate'],
+    type: 'scholarship',
+    status: 'active',
+    requirements: ['Bachelor\'s degree', 'Strong academic record'],
+    benefits: ['Full tuition coverage', 'Monthly stipend', 'Mentorship program'],
     location: 'South Africa',
-    type: 'Scholarship',
-    category: 'scholarships',
-    deadline: '2024-06-30',
-    savedAt: '2024-03-13',
+    organization: 'African Tech University',
     link: 'https://example.com/scholarship1',
   },
 ];
@@ -51,7 +69,7 @@ export default function SavedPage() {
 
   const filteredOpportunities = filter === 'all'
     ? savedOpportunities
-    : savedOpportunities.filter(opp => opp.category === filter);
+    : savedOpportunities.filter(opp => opp.type === filter);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -78,9 +96,9 @@ export default function SavedPage() {
               All
             </button>
             <button
-              onClick={() => setFilter('jobs')}
+              onClick={() => setFilter('job')}
               className={`px-4 py-2 rounded-full ${
-                filter === 'jobs'
+                filter === 'job'
                   ? 'bg-primary text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
@@ -88,9 +106,9 @@ export default function SavedPage() {
               Jobs
             </button>
             <button
-              onClick={() => setFilter('internships')}
+              onClick={() => setFilter('internship')}
               className={`px-4 py-2 rounded-full ${
-                filter === 'internships'
+                filter === 'internship'
                   ? 'bg-primary text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
@@ -98,9 +116,9 @@ export default function SavedPage() {
               Internships
             </button>
             <button
-              onClick={() => setFilter('scholarships')}
+              onClick={() => setFilter('scholarship')}
               className={`px-4 py-2 rounded-full ${
-                filter === 'scholarships'
+                filter === 'scholarship'
                   ? 'bg-primary text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
@@ -136,9 +154,9 @@ export default function SavedPage() {
                           <h3 className="text-lg font-medium text-gray-900 truncate">
                             {opportunity.title}
                           </h3>
-                          <p className="mt-1 flex items-center text-sm text-gray-500">
-                            {opportunity.company} • {opportunity.location}
-                          </p>
+                          <div className="text-sm text-gray-500">
+                            {opportunity.organization} • {opportunity.location}
+                          </div>
                         </div>
                         <div className="flex items-center space-x-4">
                           <a
@@ -165,7 +183,7 @@ export default function SavedPage() {
                         </div>
                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                           <p>
-                            Deadline: {new Date(opportunity.deadline).toLocaleDateString()}
+                            Deadline: {opportunity.deadline.toLocaleDateString()}
                           </p>
                         </div>
                       </div>

@@ -1,19 +1,8 @@
 import { FaMapMarkerAlt, FaClock, FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { Opportunity } from '@/types';
 
 interface OpportunityCardProps {
-  opportunity: {
-    id: string;
-    title: string;
-    company?: string;
-    organization?: string;
-    location: string;
-    type?: string;
-    deadline: string;
-    description?: string;
-    requirements?: string[];
-    benefits?: string[];
-    link: string;
-  };
+  opportunity: Opportunity;
   onSave?: (id: string) => void;
   isSaved?: boolean;
 }
@@ -26,7 +15,7 @@ export default function OpportunityCard({ opportunity, onSave, isSaved }: Opport
           <div>
             <h3 className="text-lg font-medium text-gray-900">{opportunity.title}</h3>
             <p className="mt-1 text-sm text-gray-500">
-              {opportunity.company || opportunity.organization}
+              {opportunity.organization}
             </p>
           </div>
           {onSave && (

@@ -38,7 +38,7 @@ const mockOpportunities: Opportunity[] = [
     status: 'active',
     requirements: ['High school diploma', 'Strong academic record'],
     benefits: ['Full tuition coverage', 'Monthly stipend', 'Mentorship program'],
-    location: 'Kenya',
+      location: 'Kenya',
     organization: 'Tech Education Foundation',
     link: 'https://techedufoundation.org/scholarships/2024'
   },
@@ -55,7 +55,7 @@ const mockOpportunities: Opportunity[] = [
     status: 'active',
     requirements: ['5+ years experience', 'React', 'TypeScript'],
     benefits: ['Competitive salary', 'Health insurance', 'Remote work'],
-    location: 'Nigeria',
+      location: 'Nigeria',
     organization: 'Digital Solutions Inc',
     link: 'https://digitalsolutions.com/careers/senior-frontend'
   }
@@ -84,7 +84,7 @@ export default function OpportunitiesPage() {
   // Filter opportunities based on search and filters
   const filteredOpportunities = useMemo(() => {
     return mockOpportunities.filter(opportunity => {
-      const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         opportunity.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesType = !selectedType || opportunity.type === selectedType;
       const matchesLocation = !selectedLocation || opportunity.location === selectedLocation;
@@ -133,7 +133,7 @@ export default function OpportunitiesPage() {
                 isSaved={savedOpportunities.includes(opportunity.id)}
               />
             ))}
-          </div>
+        </div>
 
           {filteredOpportunities.length === 0 && (
             <div className="text-center py-12">
