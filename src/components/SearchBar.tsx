@@ -87,19 +87,19 @@ export default function SearchBar({
 
           {/* Eligibility */}
           <select
-            value={filters.eligibility[0] || ''}
+            value={filters.eligibility?.[0] || ''}
             onChange={(e) =>
               setFilters({
                 ...filters,
-                eligibility: e.target.value ? [e.target.value] : [],
+                eligibility: e.target.value ? [e.target.value] : undefined,
               })
             }
-            className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
           >
             <option value="">All Eligibility</option>
             {eligibilityOptions.map((option) => (
               <option key={option} value={option}>
-                {option}
+                {option.charAt(0).toUpperCase() + option.slice(1)}
               </option>
             ))}
           </select>
