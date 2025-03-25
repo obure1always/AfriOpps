@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Opportunity, SearchFilters } from '@/types';
 import SearchBar from '@/components/SearchBar';
 import OpportunityCard from '@/components/OpportunityCard';
+import { Suspense } from 'react';
 
 // Mock data - replace with actual API calls
 const mockOpportunities: Opportunity[] = [
@@ -38,7 +39,7 @@ const mockOpportunities: Opportunity[] = [
     status: 'active',
     requirements: ['High school diploma', 'Strong academic record'],
     benefits: ['Full tuition coverage', 'Monthly stipend', 'Mentorship program'],
-      location: 'Kenya',
+    location: 'Kenya',
     organization: 'Tech Education Foundation',
     link: 'https://techedufoundation.org/scholarships/2024'
   },
@@ -55,13 +56,13 @@ const mockOpportunities: Opportunity[] = [
     status: 'active',
     requirements: ['5+ years experience', 'React', 'TypeScript'],
     benefits: ['Competitive salary', 'Health insurance', 'Remote work'],
-      location: 'Nigeria',
+    location: 'Nigeria',
     organization: 'Digital Solutions Inc',
     link: 'https://digitalsolutions.com/careers/senior-frontend'
   }
 ];
 
-export default function OpportunitiesPage() {
+function OpportunitiesContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [selectedType, setSelectedType] = useState<Opportunity['type'] | undefined>(
@@ -84,7 +85,7 @@ export default function OpportunitiesPage() {
   // Filter opportunities based on search and filters
   const filteredOpportunities = useMemo(() => {
     return mockOpportunities.filter(opportunity => {
-    const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const matchesSearch = opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         opportunity.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesType = !selectedType || opportunity.type === selectedType;
       const matchesLocation = !selectedLocation || opportunity.location === selectedLocation;
@@ -100,48 +101,48 @@ export default function OpportunitiesPage() {
 
   const handleSaveOpportunity = (id: string) => {
     setSavedOpportunities(prev =>
-      prev.includes(id)
-        ? prev.filter(oppId => oppId !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter(oppId => oppId !== id) : [...prev, id]
     );
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
+        <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900">Find Your Opportunity</h1>
-          <p className="mt-2 text-gray-600">
-            Discover scholarships, internships, and jobs across Africa
+          <p className="mt-4 text-lg text-gray-500">
+            Discover jobs, internships, and scholarships across Africa
           </p>
         </div>
 
-        <SearchBar
-          onSearch={handleSearch}
-          opportunityTypes={['scholarship', 'internship', 'job']}
-          locations={locations}
-          eligibilityOptions={eligibilityOptions}
-        />
-
         <div className="mt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOpportunities.map(opportunity => (
-              <OpportunityCard
-                key={opportunity.id}
-                opportunity={opportunity}
-                onSave={handleSaveOpportunity}
-                isSaved={savedOpportunities.includes(opportunity.id)}
-              />
-            ))}
+          <SearchBar
+            onSearch={handleSearch}
+            opportunityTypes={['scholarship', 'internship', 'job']}
+            locations={locations}
+            eligibilityOptions={eligibilityOptions}
+          />
         </div>
 
-          {filteredOpportunities.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No opportunities found matching your criteria.</p>
-            </div>
-          )}
+        <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          {filteredOpportunities.map(opportunity => (
+            <OpportunityCard
+              key={opportunity.id}
+              opportunity={opportunity}
+              onSave={handleSaveOpportunity}
+              isSaved={savedOpportunities.includes(opportunity.id)}
+            />
+          ))}
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OpportunitiesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OpportunitiesContent />
+    </Suspense>
   );
 } 
